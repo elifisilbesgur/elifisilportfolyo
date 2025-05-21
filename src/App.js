@@ -104,15 +104,13 @@ function App() {
   };
 
   return (
-    <div className={`app-container ${theme}-theme`}>
-      <div className="menu-toggle" onClick={toggleMenu}>
-        {menuOpen ? <FaTimes /> : <FaBars />}
+    <div className={`app-container ${theme}-theme ${menuOpen ? 'menu-open' : ''}`}>
+      <div className={`menu-toggle ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
+        {menuOpen ? <FaTimes className="close-icon" /> : <FaBars className="menu-icon" />}
       </div>
       
       <aside className={`sidebar ${menuOpen ? 'menu-open' : ''}`}>
-        <div className="sidebar-header">
-          <h3>Elif Işıl Beşgür</h3>
-        </div>
+        <div className="site-title">Elif Işıl Beşgür</div>
         <nav className="nav-links">
           <a 
             href="#home" 
@@ -169,6 +167,7 @@ function App() {
             <FaMoon className="theme-icon moon" />
             <div className="toggle-slider"></div>
           </div>
+          
         </nav>
         <div className="social-links">
           <a href="https://x.com/elifisilbesgur" target="_blank" rel="noopener noreferrer">
@@ -227,7 +226,7 @@ function App() {
               <p> Ben bilgisayar mühendisliği bölümü 2. sınıf öğrencisiyim. Öğrendiğim yazılım dilleriyle uygulamalar geliştiriyorum.</p>
               <p>C#, C++, Java, Python, HTML, CSS, JavaScript dillerinde deneyimim var.</p>
               <p>Qt Designer ve PyQt kullanarak basit masaüstü uygulamaları geliştiriyorum. Şimdiye kadar küçük çaplı projeler yaptım. 
-                Örneğin, bir pastane sipariş uygulaması, bir soru bankası uygulaması ve bir kelime işlemci geliştirdim. Bu projeler sayesinde arayüz tasarımı
+                Örneğin, bir pastane sipariş uygulaması, bir soru bankası uygulaması ve bir kelime işlemci uygulamasıgeliştirdim. Bu projeler sayesinde arayüz tasarımı
                  ve Python ile kodlama konularında kendimi geliştirme fırsatı buldum.</p>
               
               <div className="personal-info">
@@ -283,7 +282,7 @@ function App() {
                 <h3 className="service-title">PyQt5 ve Qtdesigner</h3>
                 <p>PyQt5 ve Qtdesigner kullanarak uygulama yapabiliyorum.Qt Designer ile tasarladığım kullanıcı arayüzlerini PyQt5 ile birleştirerek 
                   işlevsel projeler ortaya koyuyorum. PyQt5 ve Qt Designer kullanarak soru bankası uygulaması, pastane uygulaması ve kelime
-                   işlemci uygulaması gibi projeler geliştirdim.</p>
+                   istemci uygulaması gibi projeler geliştirdim.</p>
               </div>
               <div className="service-card fusion-card">
                 <div className="service-icon">
@@ -408,8 +407,7 @@ function App() {
               <div className="portfolio-info">
                 <h3>Soru Bankası Uygulaması</h3>
                 <p>Python, PyQt5 ve Qtdesigner kullanarak geliştirdiğim soru bankası uygulaması. 
-                  Bu uygulama, kullanıcıların soru bankası oluşturmasına ve sorularını yönetmesine olanak tanır.
-                   Qt Designer ve PyQt5 kullanarak geliştirdim.
+                  Bu uygulama, kullanıcıların soru bankası oluşturmasına ve sorularını yönetmesine olanak tanır. Qt Designer ve PyQt5 kullanarak geliştirdim.
                 </p>
               </div>
             </div>
@@ -439,10 +437,9 @@ function App() {
             </a> 
               <div className="portfolio-info">
                 <h3>Kelime İşlemci Uygulaması</h3>
-                <p>Bu uygulama, word benzeri bir uygulamadır. Kullanıcılar girdikleri kelimelerin rengini boyutunu değiştirebilirler.
-                   Kelimeyi altı çizgili, kalın ve italik yapabilirler. Kopyala yapıştır ve kes özellikleri bulunur. Bununla birlikte 
-                   yazdıklarımızı veri tabanına kaydeder. 
-                   Qt Designer ve PyQt5 kullanarak geliştirdim.</p>
+                <p>BU uygulama, word benzeri bir uygulamadır. Kullanıcılar girdikleri kelimelerin rengini boyutunu değiştirebilirler. Kelimeler üzerinden kes-kopyala-yapıştır işlemlerini gerçekleştirebilirler.
+                Kelimeyi altı çizgili, kalın ve italik yapabilirler. Bu işlemlerden sonrada dosyayı kaydedebilirler. Qt Designer ve PyQt5 kullanarak geliştirdim. 
+                   </p>
               </div>
             </div>
             <div className="portfolio-item">
@@ -453,7 +450,7 @@ function App() {
               />
               <div className="portfolio-info">
                 <h3>Portfolyo Sitesi</h3>
-                <p>Kendimi tanıtmak amacıyla HTML, JavaScript, CSS ve React kullanarak basit bir web sitesi oluşturdum.</p>
+                <p>Kendimi tanıtmak amacıyla HTML, JavaScript, CSS ve React kullanarak basit bir site oluşturdum.</p>
               </div>
             </div>
             

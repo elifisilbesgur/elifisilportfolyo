@@ -443,11 +443,13 @@ function App() {
               </div>
             </div>
             <div className="portfolio-item">
+            <a href="https://github.com/elifisilbesgur/elifisilportfolyo" target="_blank" rel="noopener noreferrer">
               <img 
                 src="image/1.jpg" 
                 alt="Site Projesi" 
                 className="portfolio-img" 
               />
+              </a>
               <div className="portfolio-info">
                 <h3>Portfolyo Sitesi</h3>
                 <p>Kendimi tanıtmak amacıyla HTML, JavaScript, CSS ve React kullanarak basit bir site oluşturdum.</p>

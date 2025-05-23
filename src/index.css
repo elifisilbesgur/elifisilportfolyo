@@ -786,7 +786,7 @@ html {
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
   }
-  
+
   .sidebar-header {
     display: flex;
     justify-content: space-between;
@@ -824,7 +824,7 @@ html {
     justify-content: center;
     z-index: 1;
   }
-  
+
   .theme-icon.sun {
     left: 8px;
   }
@@ -842,7 +842,7 @@ html {
   .dark-theme .toggle-slider {
     left: 4px;
   }
-  
+
   .light-theme .toggle-slider {
     left: 30px;
   }
@@ -875,12 +875,12 @@ html {
     font-size: 14px;
     margin-bottom: 5px;
   }
-
+  
   .social-links {
     padding: 5px 10px;
     margin: 0;
   }
-
+  
   .nav-link:hover, .nav-link.active {
     border-left: 2px solid var(--primary-color);
     border-bottom: none;
@@ -889,7 +889,7 @@ html {
   .about-content, .services-container, .portfolio-grid, .stats-container {
     padding: 0 20px;
   }
-  
+
   .section-title {
     font-size: 2.5rem;
   }
@@ -1092,7 +1092,7 @@ html {
   .section-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-section h1 {
     font-size: 2.5rem;
   }

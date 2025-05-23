@@ -243,7 +243,7 @@ function App() {
                 </div>
                 <h3 className="service-title">Fusion 360 ile 3D Modelleme</h3>
                 <p>Üniversite projelerimde ve kişisel çalışmalarımda Fusion 360 kullanarak temel seviyede 3D modellemeler yapabiliyorum. 
-                  Parça tasarımı ve montaj üzerinde çalışıyorum.</p>
+                  Parça tasarımı üzerinde çalışıyorum.</p>
               </div>
               <div className="service-card">
                 <div className="service-icon">
@@ -255,7 +255,7 @@ function App() {
             </div>
             
             <div className="skills-section">
-              <h3 className="skills-title">Programlama Becerileri</h3>
+              <h3 className="skills-title">Programlama Becerilerim</h3>
               <div className="skills-container">
                 <div className="skill-item">
                   <div className="skill-info">
@@ -366,7 +366,7 @@ function App() {
             </a> 
               <div className="portfolio-info">
                 <h3>Kelime İşlemci Uygulaması</h3>
-                <p>BU uygulama, word benzeri bir uygulamadır. Kullanıcılar girdikleri kelimelerin rengini boyutunu değiştirebilirler. Kelimeler üzerinden kes-kopyala-yapıştır işlemlerini gerçekleştirebilirler.
+                <p>Bu uygulama, Word benzeri bir uygulamadır. Kullanıcılar girdikleri kelimelerin rengini boyutunu değiştirebilirler. Kelimeler üzerinden kes-kopyala-yapıştır işlemlerini gerçekleştirebilirler.
                 Kelimeyi altı çizgili, kalın ve italik yapabilirler. Bu işlemlerden sonrada dosyayı kaydedebilirler. Qt Designer ve PyQt5 kullanarak geliştirdim. 
                    </p>
               </div>
@@ -395,7 +395,7 @@ function App() {
               </a>
               <div className="portfolio-info">
                 <h3>Yakında Gelecek</h3>
-                <p>akında geliştireceğim projeleri buraya ekleyeceğim.</p>
+                <p>Yakında geliştireceğim projeleri buraya ekleyeceğim.</p>
               </div>
             </div>
             

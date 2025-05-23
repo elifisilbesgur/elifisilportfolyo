@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { FaHome, FaUser, FaCode, FaBriefcase, FaEnvelope, FaTwitter, FaGithub, FaFacebook, FaAngleUp, FaAngleDown, FaBars, FaTimes, FaPhoneAlt, FaFax, FaEnvelopeOpenText, FaMapMarkerAlt, FaSun, FaMoon, FaCog } from 'react-icons/fa';
+import { FaHome, FaUser, FaCode, FaBriefcase, FaEnvelope, FaTwitter, FaGithub, FaFacebook, FaBars, FaTimes, FaPhoneAlt, FaEnvelopeOpenText, FaMapMarkerAlt, FaSun, FaMoon, FaCog } from 'react-icons/fa';
 import { SiPython } from 'react-icons/si';
 import './App.css';
 
@@ -11,10 +11,9 @@ function App() {
   const contactRef = useRef(null);
   
   const [activeSection, setActiveSection] = useState('home');
-  const [showScrollButtons] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
-  
+
   // Function to toggle theme
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -69,32 +68,6 @@ function App() {
       top: ref.current.offsetTop,
       behavior: 'smooth'
     });
-  };
-
-  // Scroll to next section
-  const scrollToNext = () => {
-    if (activeSection === 'home') {
-      scrollToSection(aboutRef);
-    } else if (activeSection === 'about') {
-      scrollToSection(servicesRef);
-    } else if (activeSection === 'services') {
-      scrollToSection(portfolioRef);
-    } else if (activeSection === 'portfolio') {
-      scrollToSection(contactRef);
-    }
-  };
-
-  // Scroll to previous section
-  const scrollToPrev = () => {
-    if (activeSection === 'contact') {
-      scrollToSection(portfolioRef);
-    } else if (activeSection === 'portfolio') {
-      scrollToSection(servicesRef);
-    } else if (activeSection === 'services') {
-      scrollToSection(aboutRef);
-    } else if (activeSection === 'about') {
-      scrollToSection(homeRef);
-    }
   };
 
   // Handle form submission
@@ -184,7 +157,6 @@ function App() {
       <main className="content">
         {/* Home Section */}
         <section className="section hero-section" id="home" ref={homeRef}>
-          <div className="section-background-text">HOŞ GELDİNİZ</div>
           <h1>Ben Elif Işıl Beşgür</h1>
           <p>Portfolyo sayfamı incelemek için kaydırın!</p>
           <a 
@@ -204,30 +176,27 @@ function App() {
               className="hero-photo"
             />
           </div>
-          
-          {showScrollButtons && (
-            <div className="scroll-buttons">
-              <button className="scroll-btn down" onClick={scrollToNext}>
-                <FaAngleDown />
-              </button>
-            </div>
-          )}
         </section>
 
         {/* About Section */}
         <section className="section" id="about" ref={aboutRef}>
-          <div className="section-background-text">HAKKIMDA</div>
           <h2 className="section-title">Ben Kimim?</h2>
           <div className="about-content">
             <div className="about-img">
               <img src="image/5.jpg" alt="Hakkımdanın fotorafı" />
             </div>
             <div className="about-text">
-              <p> Ben bilgisayar mühendisliği bölümü 2. sınıf öğrencisiyim. Öğrendiğim yazılım dilleriyle uygulamalar geliştiriyorum.</p>
-              <p>C#, C++, Java, Python, HTML, CSS, JavaScript dillerinde deneyimim var.</p>
-              <p>Qt Designer ve PyQt kullanarak basit masaüstü uygulamaları geliştiriyorum. Şimdiye kadar küçük çaplı projeler yaptım. 
-                Örneğin, bir pastane sipariş uygulaması, bir soru bankası uygulaması ve bir kelime işlemci uygulamasıgeliştirdim. Bu projeler sayesinde arayüz tasarımı
-                 ve Python ile kodlama konularında kendimi geliştirme fırsatı buldum.</p>
+              <p> Ben bilgisayar mühendisliği bölümü 2. sınıf öğrencisiyim. Öğrendiğim yazılım dilleriyle uygulamalar geliştiriyorum.
+              C#, C++, Java, Python, HTML, CSS ve JavaScript gibi çeşitli programlama dilleri üzerinde deneyim sahibiyim. 
+                Bu dillerle çalışarak hem bireysel hem de ekip temelli projelerde yer aldım ve yazılım geliştirme süreçlerini 
+                farklı açılardan deneyimleme fırsatı buldum. Özellikle masaüstü uygulama geliştirme alanında kendimi geliştirmeye odaklandım. 
+                Bu doğrultuda Qt Designer ve PyQt kütüphanelerini kullanarak kullanıcı arayüzü tasarlama ve Python ile arka plan kodlamasını 
+                entegre etme konularında pratik kazandım. Gerçekleştirdiğim projeler arasında bir pastane sipariş uygulaması, bir soru bankası 
+                sistemi ve temel özelliklere sahip bir kelime işlemci programı yer alıyor. Bu projeler sayesinde kullanıcı deneyimi, veri işleme, 
+                arayüz kodlaması ve hata ayıklama gibi yazılım geliştirme süreçlerinin pek çok aşamasına hâkimiyet kazandım. Aynı zamanda bu projeler, 
+                problem çözme becerilerimi artırmamı ve yazılım geliştirmeye daha sistematik bir yaklaşım kazanmamı sağladı. 
+                Farklı teknolojilerle çalışmak ve yeni çözümler üretmek beni her zaman motive eden unsurlar arasında yer alıyor.</p>
+              
               
               <div className="personal-info">
                 <div className="personal-info-item">
@@ -246,24 +215,10 @@ function App() {
               
             </div>
           </div>
-          
-          
-          
-          {showScrollButtons && (
-            <div className="scroll-buttons">
-              <button className="scroll-btn up" onClick={scrollToPrev}>
-                <FaAngleUp />
-              </button>
-              <button className="scroll-btn down" onClick={scrollToNext}>
-                <FaAngleDown />
-              </button>
-            </div>
-          )}
         </section>
 
         {/* Services Section */}
         <section className="section" id="services" ref={servicesRef}>
-          <div className="section-background-text">YAPABİLDİKLERİM</div>
           <h2 className="section-title">Neler Yapabilirim?</h2>
           <div className="services-container">
             <div className="services-grid">
@@ -272,26 +227,30 @@ function App() {
                   <FaCode />
                 </div>
                 <h3 className="service-title">Web Geliştirme</h3>
-                <p>HTML, CSS, JavaScript ve  React kullanarak basit düzeyde internet sayfaları tasarlayabiliyorum. Tasarımdan 
-                  kodlamaya kadar web projelerini baştan sona oluşturma deneyimi edindim. Kendi portföy sayfamı oluşturarak öğrendiklerimi uyguluyorum.</p>
+                <p>HTML, CSS, JavaScript ve React kullanarak basit düzeyde internet sayfaları tasarlayabiliyorum. Kendi portföy sayfamı oluşturarak öğrendiklerimi uyguluyorum.</p>
               </div>
               <div className="service-card">
                 <div className="service-icon">
                   <SiPython />
                 </div>
                 <h3 className="service-title">PyQt5 ve Qtdesigner</h3>
-                <p>PyQt5 ve Qtdesigner kullanarak uygulama yapabiliyorum.Qt Designer ile tasarladığım kullanıcı arayüzlerini PyQt5 ile birleştirerek 
-                  işlevsel projeler ortaya koyuyorum. PyQt5 ve Qt Designer kullanarak soru bankası uygulaması, pastane uygulaması ve kelime
-                   istemci uygulaması gibi projeler geliştirdim.</p>
+                <p>PyQt5 ve Qtdesigner kullanarak uygulama yapabiliyorum. Qt Designer ile tasarladığım kullanıcı arayüzlerini PyQt5 ile birleştirerek 
+                  işlevsel projeler ortaya koyuyorum.</p>
               </div>
-              <div className="service-card fusion-card">
+              <div className="service-card">
                 <div className="service-icon">
                   <FaCog />
                 </div>
                 <h3 className="service-title">Fusion 360 ile 3D Modelleme</h3>
                 <p>Üniversite projelerimde ve kişisel çalışmalarımda Fusion 360 kullanarak temel seviyede 3D modellemeler yapabiliyorum. 
-                  Parça tasarımı, montaj ve basit simülasyonlar üzerinde çalışıyor; fikirlerimi somut hale getirmek için dijital prototipleme becerilerimi geliştiriyorum.
-                </p>
+                  Parça tasarımı ve montaj üzerinde çalışıyorum.</p>
+              </div>
+              <div className="service-card">
+                <div className="service-icon">
+                  <FaCode />
+                </div>
+                <h3 className="service-title">C# Programlama</h3>
+                <p>C# ile Windows Form uygulamaları geliştiriyorum. Temel CRUD işlemleri, veritabanı bağlantıları ve kullanıcı arayüzü tasarımı konularında deneyim sahibiyim.</p>
               </div>
             </div>
             
@@ -360,41 +319,11 @@ function App() {
               </div>
             </div>
           </div>
-          
-          {showScrollButtons && (
-            <div className="scroll-buttons">
-              <button className="scroll-btn up" onClick={scrollToPrev}>
-                <FaAngleUp />
-              </button>
-              <button className="scroll-btn down" onClick={scrollToNext}>
-                <FaAngleDown />
-              </button>
-            </div>
-          )}
         </section>
 
         {/* Portfolio Section */}
         <section className="section" id="portfolio" ref={portfolioRef}>
-          <div className="section-background-text">PORTFOLIO</div>
           <h2 className="section-title">Portfolyo</h2>
-          <div className="stats-container">
-            <div className="stat-item">
-              <div className="stat-number">1. Proje</div>
-              <div className="stat-title">Soru Bankası Uygulaması</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">2. Proje</div>
-              <div className="stat-title">Pastane Sipariş Uygulaması</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">3. Proje</div>
-              <div className="stat-title">Kelime İşlemci Uygulaması</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">4. Proje</div>
-              <div className="stat-title">Portfolyo Sitesi</div>
-            </div>
-          </div>
           <div className="portfolio-grid">
             <div className="portfolio-item">
             <a href="https://github.com/elifisilbesgur/Soru-Bankas-Uygulamas-" target="_blank" rel="noopener noreferrer">
@@ -456,24 +385,39 @@ function App() {
               </div>
             </div>
             
+            <div className="portfolio-item">
+              <a href="https://github.com/elifisilbesgur" target="_blank" rel="noopener noreferrer">
+                <img 
+                  src="image/yeni.jpg" 
+                  alt="GitHub Projem" 
+                  className="portfolio-img" 
+                />
+              </a>
+              <div className="portfolio-info">
+                <h3>Yakında Gelecek</h3>
+                <p>akında geliştireceğim projeleri buraya ekleyeceğim.</p>
+              </div>
+            </div>
+            
+            <div className="portfolio-item">
+              <a href="https://github.com/elifisilbesgur" target="_blank" rel="noopener noreferrer">
+                <img 
+                  src="image/yeni.jpg" 
+                  alt="Mobil Uygulama" 
+                  className="portfolio-img" 
+                />
+              </a>
+              <div className="portfolio-info">
+                <h3>Yakında Gelecek</h3>
+                <p> Yakında geliştireceğim projeleri buraya ekleyeceğim.</p>
+              </div>
+            </div>
             
           </div>
-          
-          {showScrollButtons && (
-            <div className="scroll-buttons">
-              <button className="scroll-btn up" onClick={scrollToPrev}>
-                <FaAngleUp />
-              </button>
-              <button className="scroll-btn down" onClick={scrollToNext}>
-                <FaAngleDown />
-              </button>
-            </div>
-          )}
         </section>
 
         {/* Contact Section */}
         <section className="section" id="contact" ref={contactRef}>
-          <div className="section-background-text">CONTACT</div>
           <h2 className="section-title">İletişim</h2>
           <div className="contact-flex-container">
             <div className="contact-info-box">
@@ -485,10 +429,6 @@ function App() {
               <div className="contact-info-item">
                 <FaPhoneAlt className="contact-info-icon" />
                 <span>(553) 553 28 80</span>
-              </div>
-              <div className="contact-info-item">
-                <FaFax className="contact-info-icon" />
-                <span>(553) 553 80 28</span>
               </div>
               <div className="contact-info-item">
                 <FaEnvelopeOpenText className="contact-info-icon" />
@@ -517,13 +457,6 @@ function App() {
               <button type="submit" className="submit-btn">Gönder</button>
             </form>
           </div>
-          {showScrollButtons && (
-            <div className="scroll-buttons">
-              <button className="scroll-btn up" onClick={scrollToPrev}>
-                <FaAngleUp />
-              </button>
-            </div>
-          )}
         </section>
       </main>
     </div>

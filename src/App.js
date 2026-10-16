@@ -1,466 +1,298 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { FaHome, FaUser, FaCode, FaBriefcase, FaEnvelope, FaTwitter, FaGithub, FaFacebook, FaBars, FaTimes, FaPhoneAlt, FaEnvelopeOpenText, FaMapMarkerAlt, FaSun, FaMoon, FaCog } from 'react-icons/fa';
-import { SiPython } from 'react-icons/si';
+import React, { useEffect, useRef, useState } from 'react';
+import { FaGithub, FaXTwitter, FaEnvelope, FaSun, FaMoon } from 'react-icons/fa6';
+import PixelRoom from './PixelRoom';
 import './App.css';
 
-function App() {
-  const homeRef = useRef(null);
-  const aboutRef = useRef(null);
-  const servicesRef = useRef(null);
-  const portfolioRef = useRef(null);
-  const contactRef = useRef(null);
-  
-  const [activeSection, setActiveSection] = useState('home');
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState('dark');
+const EMAIL = 'elifisilbesgur.bursa@gmail.com';
+const GITHUB = 'https://github.com/elifisilbesgur';
 
-  // Function to toggle theme
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
-  
-  // Load theme from localStorage on initial render
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
+const PROJECTS = [
+  {
+    id: 'lumanote',
+    title: 'LumaNote',
+    lede: 'Odak oturumlarını, notları ve çalıştıkça büyüyen bir piksel bahçeyi bir araya getiren telefon uygulaması.',
+    body: 'Pomodoro sayacıyla çalıştıkça jeton kazanılıyor; jetonlarla bahçeye tohum, eve eşya alınıyor. Not editöründe biçimlendirme, çizim alanı, tablo ve dosya ekleri var. Arka planda projeye ait özgün sentez piyano besteleri çalıyor.',
+    stack: 'Expo, React Native, TypeScript, WebView, Canvas',
+    image: '/projects/lumanote.webp',
+    alt: 'LumaNote ekranları: not editörü, karlı piksel bahçe ve ses ayarları',
+    repo: `${GITHUB}/lumanote`,
+  },
+  {
+    id: 'lumaraf',
+    title: 'LumaRaf',
+    lede: 'Okudukça kitaplığı, izledikçe kaset rafı dolan piksel bir ev.',
+    body: 'Okunan her kitap rafa bir sırt olarak yerleşiyor; kalınlığı sayfa sayısından geliyor. İzlenen filmler TV ünitesindeki kaset kutusuna giriyor. Odaların tamamı kodla, 160×200 piksellik bir tuvale her karede yeniden çiziliyor.',
+    stack: 'Expo SDK 57, React Native, TypeScript',
+    image: '/projects/lumaraf.webp',
+    alt: 'LumaRaf ekranları: okuma odası, kitaplık ve TV odası',
+    repo: `${GITHUB}/lumaraf`,
+  },
+  {
+    id: 'kapibara',
+    title: 'Kapibara Uçuşu',
+    lede: 'Sinir bozucu ama sakinleştirici bir piksel art uçuş oyunu.',
+    body: 'Jetpack’li bir kapibara bambuların arasından süzülüyor, portakal topluyor ve sırtına yolcu alıyor. Skor arttıkça uçuş modu değişiyor, gökyüzü sabahtan geceye dönüyor. Her yolcunun kendine özgü bir yeteneği var.',
+    stack: 'Expo, React Native Skia, Reanimated',
+    image: '/projects/kapibara.webp',
+    alt: 'Sırtında kuş, kaplumbağa, maymun, baykuş, flamingo ve penguen taşıyan piksel kapibaralar',
+    repo: `${GITHUB}/kapibara-ucusu-oyun`,
+    pixel: true,
+  },
+  {
+    id: 'bursa',
+    title: 'Bursa Hazırlık Atlası',
+    lede: 'Bursa için harita tabanlı deprem bilgilendirme ve hazırlık platformu.',
+    body: 'Haritada bir nokta seçince ilçe ve mahalle bilgisi, ilçe nüfusu ve en yakın üç toplanma alanı listeleniyor. 17 ilçe ve 1.206 toplanma alanı kaydı yerel verilerden okunuyor; son depremler AFAD panelinde süzülebiliyor.',
+    stack: 'Python, FastAPI, HTML, CSS, JavaScript, Canvas',
+    image: '/projects/bursa-atlas.svg',
+    alt: 'Bursa’nın 17 ilçe sınırı ve kırmızı noktalarla toplanma alanları',
+    caption: 'Görsel, projedeki ilçe sınırları ve toplanma alanı verilerinden çizildi.',
+    repo: `${GITHUB}/Bursa-Deprem-Web-Uygulamas-`,
+  },
+];
 
-  // Toggle menu function
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+const EARLIER = [
+  {
+    title: 'Soru Bankası',
+    text: 'Soru bankası oluşturup soruları yönetmeye yarayan masaüstü uygulaması.',
+    image: '/projects/soru-bankasi.webp',
+    repo: `${GITHUB}/Soru-Bankas-Uygulamas-`,
+  },
+  {
+    title: 'Pastane Siparişi',
+    text: 'Siparişleri alıp veritabanına kaydeden, takibini kolaylaştıran pastane uygulaması.',
+    image: '/projects/pastane.webp',
+    repo: `${GITHUB}/Pastane-Uygulamas-`,
+  },
+  {
+    title: 'Kelime İşlemci',
+    text: 'Yazı rengi ve boyutu, kalın-italik-altı çizili biçimler ve dosya kaydetme sunan Word benzeri bir editör.',
+    image: '/projects/kelime-islemci.webp',
+    repo: `${GITHUB}/Kelime-lemci`,
+  },
+];
 
-  // Close menu when clicking on a nav link
-  const handleNavClick = (ref) => {
-    scrollToSection(ref);
-    setMenuOpen(false);
-  };
+const TOOLS = [
+  ['Mobil', 'Expo, React Native, TypeScript, Skia'],
+  ['Web', 'React, JavaScript, HTML, CSS, FastAPI'],
+  ['Masaüstü', 'Python, PyQt5, Qt Designer, C# Windows Forms'],
+  ['Diğer', 'C++, Java, Fusion 360 ile 3B modelleme'],
+];
 
-  // Handle scroll to set active section
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
-      
-      if (homeRef.current && scrollPosition < aboutRef.current.offsetTop) {
-        setActiveSection('home');
-      } else if (aboutRef.current && scrollPosition >= aboutRef.current.offsetTop && scrollPosition < servicesRef.current.offsetTop) {
-        setActiveSection('about');
-      } else if (servicesRef.current && scrollPosition >= servicesRef.current.offsetTop && scrollPosition < portfolioRef.current.offsetTop) {
-        setActiveSection('services');
-      } else if (portfolioRef.current && scrollPosition >= portfolioRef.current.offsetTop && scrollPosition < contactRef.current.offsetTop) {
-        setActiveSection('portfolio');
-      } else if (contactRef.current && scrollPosition >= contactRef.current.offsetTop) {
-        setActiveSection('contact');
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Smooth scroll to section
-  const scrollToSection = (ref) => {
-    window.scrollTo({
-      top: ref.current.offsetTop,
-      behavior: 'smooth'
-    });
-  };
-
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Form gönderildi!');
-  };
-
-  return (
-    <div className={`app-container ${theme}-theme ${menuOpen ? 'menu-open' : ''}`}>
-      <div className={`menu-toggle ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
-        {menuOpen ? <FaTimes className="close-icon" /> : <FaBars className="menu-icon" />}
-      </div>
-      
-      <aside className={`sidebar ${menuOpen ? 'menu-open' : ''}`}>
-        <div className="site-title">Elif Işıl Beşgür</div>
-        <nav className="nav-links">
-          <a 
-            href="#home" 
-            className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick(homeRef);
-            }}
-          >
-            <FaHome /> <span>Ana Sayfa</span>
-          </a>
-          <a 
-            href="#about" 
-            className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick(aboutRef);
-            }}
-          >
-            <FaUser /> <span>Ben Kimim?</span>
-          </a>
-          <a 
-            href="#services" 
-            className={`nav-link ${activeSection === 'services' ? 'active' : ''}`}
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick(servicesRef);
-            }}
-          >
-            <FaCode /> <span>Neler Yapabilirim?</span>
-          </a>
-          <a 
-            href="#portfolio" 
-            className={`nav-link ${activeSection === 'portfolio' ? 'active' : ''}`}
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick(portfolioRef);
-            }}
-          >
-            <FaBriefcase /> <span>Portfolyo</span>
-          </a>
-          <a 
-            href="#contact" 
-            className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick(contactRef);
-            }}
-          >
-            <FaEnvelope /> <span>İletişim</span>
-          </a>
-          <div className="theme-toggle" onClick={toggleTheme}>
-            <FaSun className="theme-icon sun" />
-            <FaMoon className="theme-icon moon" />
-            <div className="toggle-slider"></div>
-          </div>
-          
-        </nav>
-        <div className="social-links">
-          <a href="https://x.com/elifisilbesgur" target="_blank" rel="noopener noreferrer">
-            <FaTwitter />
-          </a>
-          <a href="https://github.com/elifisilbesgur" target="_blank" rel="noopener noreferrer">
-            <FaGithub />
-          </a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-            <FaFacebook />
-          </a>
-        </div>
-      </aside>
-      <main className="content">
-        {/* Home Section */}
-        <section className="section hero-section" id="home" ref={homeRef}>
-          <h1>Ben Elif Işıl Beşgür</h1>
-          <p>Portfolyo sayfamı incelemek için kaydırın!</p>
-          <a 
-            href="#portfolio" 
-            className="hero-btn"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection(portfolioRef);
-            }}
-          >
-            Portfolyomu İncele
-          </a>
-          <div className="hero-photo-container">
-            <img 
-              src="/image/profil.jpg" 
-              alt="Elif Işıl BEŞGÜR" 
-              className="hero-photo"
-            />
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section className="section" id="about" ref={aboutRef}>
-          <h2 className="section-title">Ben Kimim?</h2>
-          <div className="about-content">
-            <div className="about-img">
-              <img src="image/5.jpg" alt="Hakkımdanın fotorafı" />
-            </div>
-            <div className="about-text">
-              <p> Ben bilgisayar mühendisliği bölümü 2. sınıf öğrencisiyim. Öğrendiğim yazılım dilleriyle uygulamalar geliştiriyorum.
-              C#, C++, Java, Python, HTML, CSS ve JavaScript gibi çeşitli programlama dilleri üzerinde deneyim sahibiyim. 
-                Bu dillerle çalışarak hem bireysel hem de ekip temelli projelerde yer aldım ve yazılım geliştirme süreçlerini 
-                farklı açılardan deneyimleme fırsatı buldum. Özellikle masaüstü uygulama geliştirme alanında kendimi geliştirmeye odaklandım. 
-                Bu doğrultuda Qt Designer ve PyQt kütüphanelerini kullanarak kullanıcı arayüzü tasarlama ve Python ile arka plan kodlamasını 
-                entegre etme konularında pratik kazandım. Gerçekleştirdiğim projeler arasında bir pastane sipariş uygulaması, bir soru bankası 
-                sistemi ve temel özelliklere sahip bir kelime işlemci programı yer alıyor. Bu projeler sayesinde kullanıcı deneyimi, veri işleme, 
-                arayüz kodlaması ve hata ayıklama gibi yazılım geliştirme süreçlerinin pek çok aşamasına hâkimiyet kazandım. Aynı zamanda bu projeler, 
-                problem çözme becerilerimi artırmamı ve yazılım geliştirmeye daha sistematik bir yaklaşım kazanmamı sağladı. 
-                Farklı teknolojilerle çalışmak ve yeni çözümler üretmek beni her zaman motive eden unsurlar arasında yer alıyor.</p>
-              
-              
-              <div className="personal-info">
-                <div className="personal-info-item">
-                  <strong>İsim:</strong> <span>Elif Işıl BEŞGÜR</span>
-                </div>
-                <div className="personal-info-item">
-                  <strong>Email:</strong> <a href="mailto:info@.com">elifisilbesgur.bursa@gmail.com</a>
-                </div>
-                <div className="personal-info-item">
-                  <strong>Konum:</strong> <span>BALIKESİR, Türkiye</span>
-                </div>
-                <div className="personal-info-item">
-                  <strong>Üniversite:</strong> <span>Balıkesir Üniversitesi</span>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-        </section>
-
-        {/* Services Section */}
-        <section className="section" id="services" ref={servicesRef}>
-          <h2 className="section-title">Neler Yapabilirim?</h2>
-          <div className="services-container">
-            <div className="services-grid">
-              <div className="service-card">
-                <div className="service-icon">
-                  <FaCode />
-                </div>
-                <h3 className="service-title">Web Geliştirme</h3>
-                <p>HTML, CSS, JavaScript ve React kullanarak basit düzeyde internet sayfaları tasarlayabiliyorum. Kendi portföy sayfamı oluşturarak öğrendiklerimi uyguluyorum.</p>
-              </div>
-              <div className="service-card">
-                <div className="service-icon">
-                  <SiPython />
-                </div>
-                <h3 className="service-title">PyQt5 ve Qtdesigner</h3>
-                <p>PyQt5 ve Qtdesigner kullanarak uygulama yapabiliyorum. Qt Designer ile tasarladığım kullanıcı arayüzlerini PyQt5 ile birleştirerek 
-                  işlevsel projeler ortaya koyuyorum.</p>
-              </div>
-              <div className="service-card">
-                <div className="service-icon">
-                  <FaCog />
-                </div>
-                <h3 className="service-title">Fusion 360 ile 3D Modelleme</h3>
-                <p>Üniversite projelerimde ve kişisel çalışmalarımda Fusion 360 kullanarak temel seviyede 3D modellemeler yapabiliyorum. 
-                  Parça tasarımı üzerinde çalışıyorum.</p>
-              </div>
-              <div className="service-card">
-                <div className="service-icon">
-                  <FaCode />
-                </div>
-                <h3 className="service-title">C# Programlama</h3>
-                <p>C# ile Windows Form uygulamaları geliştiriyorum. Temel CRUD işlemleri, veritabanı bağlantıları ve kullanıcı arayüzü tasarımı konularında deneyim sahibiyim.</p>
-              </div>
-            </div>
-            
-            <div className="skills-section">
-              <h3 className="skills-title">Programlama Becerilerim</h3>
-              <div className="skills-container">
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span>HTML/CSS</span>
-                    <span>90%</span>
-                  </div>
-                  <div className="skill-bar">
-                    <div className="skill-progress" style={{width: '90%'}}></div>
-                  </div>
-                </div>
-                
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span>JavaScript</span>
-                    <span>75%</span>
-                  </div>
-                  <div className="skill-bar">
-                    <div className="skill-progress" style={{width: '75%'}}></div>
-                  </div>
-                </div>
-                
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span>React</span>
-                    <span>65%</span>
-                  </div>
-                  <div className="skill-bar">
-                    <div className="skill-progress" style={{width: '65%'}}></div>
-                  </div>
-                </div>
-                
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span>Python</span>
-                    <span>85%</span>
-                  </div>
-                  <div className="skill-bar">
-                    <div className="skill-progress" style={{width: '85%'}}></div>
-                  </div>
-                </div>
-                
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span>PyQt5</span>
-                    <span>80%</span>
-                  </div>
-                  <div className="skill-bar">
-                    <div className="skill-progress" style={{width: '80%'}}></div>
-                  </div>
-                </div>
-                
-                <div className="skill-item">
-                  <div className="skill-info">
-                    <span>C#</span>
-                    <span>70%</span>
-                  </div>
-                  <div className="skill-bar">
-                    <div className="skill-progress" style={{width: '70%'}}></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Portfolio Section */}
-        <section className="section" id="portfolio" ref={portfolioRef}>
-          <h2 className="section-title">Portfolyo</h2>
-          <div className="portfolio-grid">
-            <div className="portfolio-item">
-            <a href="https://github.com/elifisilbesgur/Soru-Bankas-Uygulamas-" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="image/4.jpg" 
-                alt="Soru Bankası Uygulaması" 
-                className="portfolio-img" 
-              />
-            </a>
-              <div className="portfolio-info">
-                <h3>Soru Bankası Uygulaması</h3>
-                <p>Python, PyQt5 ve Qtdesigner kullanarak geliştirdiğim soru bankası uygulaması. 
-                  Bu uygulama, kullanıcıların soru bankası oluşturmasına ve sorularını yönetmesine olanak tanır. Qt Designer ve PyQt5 kullanarak geliştirdim.
-                </p>
-              </div>
-            </div>
-            <div className="portfolio-item">
-            <a href="https://github.com/elifisilbesgur/Pastane-Uygulamas-" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="image/3.jpg" 
-                alt="Pastane Sipariş Uygulaması" 
-                className="portfolio-img" 
-              />
-            </a>
-              <div className="portfolio-info">
-                <h3>Pastane Sipariş Uygulaması</h3>
-                <p>Bu uygulama, kullanıcıların pastane siparişlerini yapmasına ve ödemelerini tamamlamasına olanak tanır.
-                  Ayrıca, siparişlerin takibi ve yönetimi için güzel bir arayüz sunar. Kullanıcıların siparişlerini alır ve veritabanına kaydeder.
-                  PyQt5 kullanarak geliştirdim.
-                </p>
-              </div>
-            </div>
-            <div className="portfolio-item">
-            <a href="https://github.com/elifisilbesgur/Kelime-lemci" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="image/2.jpg" 
-                alt="Kelime İşlemci" 
-                className="portfolio-img" 
-              />
-            </a> 
-              <div className="portfolio-info">
-                <h3>Kelime İşlemci Uygulaması</h3>
-                <p>Bu uygulama, Word benzeri bir uygulamadır. Kullanıcılar girdikleri kelimelerin rengini boyutunu değiştirebilirler. Kelimeler üzerinden kes-kopyala-yapıştır işlemlerini gerçekleştirebilirler.
-                Kelimeyi altı çizgili, kalın ve italik yapabilirler. Bu işlemlerden sonrada dosyayı kaydedebilirler. Qt Designer ve PyQt5 kullanarak geliştirdim. 
-                   </p>
-              </div>
-            </div>
-            <div className="portfolio-item">
-            <a href="https://github.com/elifisilbesgur/elifisilportfolyo" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="image/1.jpg" 
-                alt="Site Projesi" 
-                className="portfolio-img" 
-              />
-              </a>
-              <div className="portfolio-info">
-                <h3>Portfolyo Sitesi</h3>
-                <p>Kendimi tanıtmak amacıyla HTML, JavaScript, CSS ve React kullanarak basit bir site oluşturdum.</p>
-              </div>
-            </div>
-            
-            <div className="portfolio-item">
-              <a href="https://github.com/elifisilbesgur" target="_blank" rel="noopener noreferrer">
-                <img 
-                  src="image/yeni.jpg" 
-                  alt="GitHub Projem" 
-                  className="portfolio-img" 
-                />
-              </a>
-              <div className="portfolio-info">
-                <h3>Yakında Gelecek</h3>
-                <p>Yakında geliştireceğim projeleri buraya ekleyeceğim.</p>
-              </div>
-            </div>
-            
-            <div className="portfolio-item">
-              <a href="https://github.com/elifisilbesgur" target="_blank" rel="noopener noreferrer">
-                <img 
-                  src="image/yeni.jpg" 
-                  alt="Mobil Uygulama" 
-                  className="portfolio-img" 
-                />
-              </a>
-              <div className="portfolio-info">
-                <h3>Yakında Gelecek</h3>
-                <p> Yakında geliştireceğim projeleri buraya ekleyeceğim.</p>
-              </div>
-            </div>
-            
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section className="section" id="contact" ref={contactRef}>
-          <h2 className="section-title">İletişim</h2>
-          <div className="contact-flex-container">
-            <div className="contact-info-box">
-              <h3 className="contact-info-title">ADRES</h3>
-              <div className="contact-info-address">
-                <FaMapMarkerAlt className="contact-info-icon" />
-                <span>Balıkesir, Türkiye</span>
-              </div>
-              <div className="contact-info-item">
-                <FaPhoneAlt className="contact-info-icon" />
-                <span>(553) 553 28 80</span>
-              </div>
-              <div className="contact-info-item">
-                <FaEnvelopeOpenText className="contact-info-icon" />
-                <span>elifisilbesgur.bursa@gmail.com</span>
-              </div>
-              <h4 className="contact-info-follow">SOSYAL MEDYA HESAPLARIM</h4>
-              <div className="contact-info-social">
-                <a href="https://x.com/elifisilbesgur" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
-                <a href="https://github.com/elifisilbesgur" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-              </div>
-            </div>
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Ad Soyad</label>
-                <input type="text" id="name" className="form-control" required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">E-posta</label>
-                <input type="email" id="email" className="form-control" required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="message">Mesaj</label>
-                <textarea id="message" className="form-control" required></textarea>
-              </div>
-              <button type="submit" className="submit-btn">Gönder</button>
-            </form>
-          </div>
-        </section>
-      </main>
-    </div>
-  );
+function initialTheme() {
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+  } catch (e) { /* depolama kapalı olabilir */ }
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
 }
 
-export default App;
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+}
+
+export default function App() {
+  const [theme, setTheme] = useState(initialTheme);
+  const [active, setActive] = useState('');
+  const [highlight, setHighlight] = useState('');
+  const [form, setForm] = useState({ name: '', subject: '', message: '' });
+  const pickTimer = useRef(0);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem('theme', theme); } catch (e) { /* yok say */ }
+  }, [theme]);
+
+  useEffect(() => {
+    const ids = ['projeler', 'hakkimda', 'iletisim'];
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }),
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+    ids.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+    return () => io.disconnect();
+  }, []);
+
+  const pickProject = (id) => {
+    scrollToId(`proje-${id}`);
+    setHighlight(id);
+    window.clearTimeout(pickTimer.current);
+    pickTimer.current = window.setTimeout(() => setHighlight(''), 2200);
+  };
+
+  const sendMail = (e) => {
+    e.preventDefault();
+    const subject = form.subject.trim() || 'Portfolyo üzerinden mesaj';
+    const body = `${form.message.trim()}\n\n${form.name.trim()}`;
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  const nav = [
+    ['projeler', 'Projeler'],
+    ['hakkimda', 'Hakkımda'],
+    ['iletisim', 'İletişim'],
+  ];
+
+  return (
+    <>
+      <a className="skip" href="#projeler">İçeriğe geç</a>
+      <header className="topbar">
+        <div className="wrap topbar-inner">
+          <a className="brand" href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+            Elif Işıl Beşgür
+          </a>
+          <nav aria-label="Bölümler">
+            {nav.map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={active === id ? 'is-active' : undefined}
+                aria-current={active === id ? 'true' : undefined}
+                onClick={(e) => { e.preventDefault(); scrollToId(id); }}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+          <button
+            type="button"
+            className="theme-btn"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            aria-label={theme === 'dark' ? 'Gündüz görünümüne geç' : 'Gece görünümüne geç'}
+            title={theme === 'dark' ? 'Gündüz görünümü' : 'Gece görünümü'}
+          >
+            {theme === 'dark' ? <FaSun aria-hidden /> : <FaMoon aria-hidden />}
+          </button>
+        </div>
+      </header>
+
+      <main id="top">
+        <section className="hero wrap">
+          <div className="hero-text">
+            <h1>Elif Işıl Beşgür</h1>
+            <p className="hero-lede">
+              Balıkesir Üniversitesi’nde bilgisayar mühendisliği 4. sınıf öğrencisiyim.
+              Not almayı, kitap biriktirmeyi ve odaklanmayı biraz daha keyifli hale getiren
+              küçük uygulamalar yapıyorum.
+            </p>
+            <div className="hero-actions">
+              <a className="btn btn-primary" href="#projeler" onClick={(e) => { e.preventDefault(); scrollToId('projeler'); }}>
+                Projelere bak
+              </a>
+              <a className="btn" href={`mailto:${EMAIL}`}>
+                <FaEnvelope aria-hidden /> E-posta gönder
+              </a>
+            </div>
+          </div>
+          <figure className="hero-room">
+            <PixelRoom theme={theme} onPick={pickProject} />
+            <figcaption>Odadaki kitaplık, kapibara, saksı ve harita birer projeye açılıyor.</figcaption>
+          </figure>
+        </section>
+
+        <section id="projeler" className="section wrap" aria-labelledby="projeler-baslik">
+          <h2 id="projeler-baslik">Projeler</h2>
+          <div className="projects">
+            {PROJECTS.map((p) => (
+              <article
+                key={p.id}
+                id={`proje-${p.id}`}
+                className={`project${highlight === p.id ? ' is-picked' : ''}`}
+              >
+                <figure className={`project-media${p.pixel ? ' is-pixel' : ''}`}>
+                  <img src={p.image} alt={p.alt} loading="lazy" />
+                  {p.caption && <figcaption>{p.caption}</figcaption>}
+                </figure>
+                <div className="project-text">
+                  <h3>{p.title}</h3>
+                  <p className="project-lede">{p.lede}</p>
+                  <p>{p.body}</p>
+                  <p className="project-stack"><span>Kullandıklarım:</span> {p.stack}</p>
+                  <a className="text-link" href={p.repo} target="_blank" rel="noopener noreferrer">
+                    <FaGithub aria-hidden /> Kaynak kodu GitHub’da
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <h3 className="earlier-title">Daha önceki işler</h3>
+          <p className="earlier-intro">Python ve PyQt5 ile masaüstü uygulamaları geliştirerek başladım. Bu üçü o dönemden.</p>
+          <ul className="earlier">
+            {EARLIER.map((p) => (
+              <li key={p.title}>
+                <a href={p.repo} target="_blank" rel="noopener noreferrer">
+                  <img src={p.image} alt="" loading="lazy" />
+                  <span className="earlier-name">{p.title}</span>
+                  <span className="earlier-text">{p.text}</span>
+                  <span className="earlier-stack">Python, PyQt5, Qt Designer</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="hakkimda" className="section wrap about" aria-labelledby="hakkimda-baslik">
+          <img className="about-photo" src="/image/profil.webp" alt="Elif Işıl Beşgür" loading="lazy" />
+          <div className="about-text">
+            <h2 id="hakkimda-baslik">Hakkımda</h2>
+            <p>
+              Üniversitede C#, C++, Java ve Python ile çalıştım; ilk projelerim Qt Designer ve PyQt5 ile
+              yaptığım masaüstü uygulamalarıydı. Arayüz tasarlamak ile arka plandaki kodu
+              birleştirmek o zamandan beri en çok keyif aldığım kısım.
+            </p>
+            <p>
+              Son dönemde telefon uygulamalarına yöneldim. Expo ve React Native ile, sahnelerini kodla
+              çizdiğim piksel dünyalar kuruyorum: çalıştıkça büyüyen bir bahçe, okudukça dolan bir kitaplık,
+              uçmayı öğrenen bir kapibara. Bursa Hazırlık Atlası’nda ise belediyenin açık verileriyle,
+              harita üzerinde çalıştım.
+            </p>
+            <dl className="tools">
+              {TOOLS.map(([k, v]) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
+        <section id="iletisim" className="section wrap contact" aria-labelledby="iletisim-baslik">
+          <div className="contact-intro">
+            <h2 id="iletisim-baslik">İletişim</h2>
+            <p>Staj, ortak proje ya da sadece merhaba demek için yazabilirsin.</p>
+            <a className="contact-mail" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            <ul className="contact-links">
+              <li><a href={GITHUB} target="_blank" rel="noopener noreferrer"><FaGithub aria-hidden /> GitHub</a></li>
+              <li><a href="https://x.com/elifisilbesgur" target="_blank" rel="noopener noreferrer"><FaXTwitter aria-hidden /> X</a></li>
+            </ul>
+          </div>
+          <form className="contact-form" onSubmit={sendMail}>
+            <label>
+              Adın
+              <input type="text" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} autoComplete="name" />
+            </label>
+            <label>
+              Konu
+              <input type="text" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} placeholder="Portfolyo üzerinden mesaj" />
+            </label>
+            <label>
+              Mesajın
+              <textarea required rows={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
+            </label>
+            <button type="submit" className="btn btn-primary">E-posta uygulamasında aç</button>
+            <p className="form-note">Mesajın, e-posta uygulamanda gönderilmeye hazır olarak açılır.</p>
+          </form>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <div className="wrap">© 2026 Elif Işıl Beşgür</div>
+      </footer>
+    </>
+  );
+}
